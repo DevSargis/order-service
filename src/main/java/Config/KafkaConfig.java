@@ -16,8 +16,20 @@ import java.util.Map;
 @Configuration
 public class KafkaConfig {
 
-    @Value("${kafka.bootstrap-servers:localhost:9092}")
+    @Value("${KAFKA_BOOTSTRAP_SERVERS}")
     private String bootstrapServers;
+
+    @Value("${KAFKA_SECURITY_PROTOCOL:SASL_SSL}")
+    private String securityProtocol;
+
+    @Value("${KAFKA_SASL_MECHANISM:SCRAM-SHA-256}")
+    private String saslMechanism;
+
+    @Value("${KAFKA_USERNAME}")
+    private String username;
+
+    @Value("${KAFKA_PASSWORD}")
+    private String password;
 
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
@@ -25,6 +37,13 @@ public class KafkaConfig {
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        config.put("security.protocol", securityProtocol);
+        config.put("sasl.mechanism", saslMechanism);
+        config.put("sasl.jaas.config", String.format(
+                "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";",
+                username, password
+        ));
+
         return new DefaultKafkaProducerFactory<>(config);
     }
 
