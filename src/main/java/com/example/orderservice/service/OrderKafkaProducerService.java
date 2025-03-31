@@ -1,6 +1,6 @@
-package service;
+package com.example.orderservice.service;
 
-import model.Order;
+import com.example.orderservice.model.Order;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

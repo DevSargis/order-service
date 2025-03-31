@@ -1,4 +1,4 @@
-package model;// Order.java (Model)
+package com.example.orderservice.model;// Order.java (Model)
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
