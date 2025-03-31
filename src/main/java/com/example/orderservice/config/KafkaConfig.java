@@ -16,20 +16,20 @@ import java.util.Map;
 @Configuration
 public class KafkaConfig {
 
-    @Value("${KAFKA_BOOTSTRAP_SERVERS}")
+    @Value("${kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value("${KAFKA_SECURITY_PROTOCOL:SASL_SSL}")
-    private String securityProtocol;
-
-    @Value("${KAFKA_SASL_MECHANISM:SCRAM-SHA-256}")
-    private String saslMechanism;
-
-    @Value("${KAFKA_USERNAME}")
+    @Value("${kafka.username}")
     private String username;
 
-    @Value("${KAFKA_PASSWORD}")
+    @Value("${kafka.password}")
     private String password;
+
+    @Value("${kafka.security-protocol:SASL_SSL}")
+    private String securityProtocol;
+
+    @Value("${kafka.sasl-mechanism:SCRAM-SHA-256}")
+    private String saslMechanism;
 
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
